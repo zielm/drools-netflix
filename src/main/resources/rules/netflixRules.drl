@@ -27,9 +27,8 @@ rule 'Init'
 	when
 	then
 		System.out.println("init");
-		//buttons = new ArrayList <JRadioButton>;
 		addQuestion(textPane, 
-		 	//buttons, 
+		 	buttons, 
 			new Question("What SF series should I watch on Netflix?", 
 			Arrays.asList("SciFi", "Horror", "Slipstream", "Fantasy")));
 end
@@ -1056,6 +1055,10 @@ function void addQuestion(JTextPane textPane, ArrayList buttons, Question questi
 			((List <JRadioButton>)buttons).get(i).setVisible(true);
 			i++;				
 		}
+	
+}
+
+function void happyEnd(String ending) {
 	
 }
 
