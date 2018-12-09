@@ -206,7 +206,7 @@ public class Netflix {
 			cardLayout.next(contentPane);
 			
 			//callback.start((JFrame)this);
-			callback.start(textPane, buttons);
+			callback.start(textPane/*, buttons*/);
 		}
 		
 		/**
@@ -240,10 +240,10 @@ public class Netflix {
 	        this.kcontainer = kcontainer;
 	    }
 	    
-	   public void start(JTextPane textPane, List<JRadioButton> buttons) {
+	   public void start(JTextPane textPane/*, List<JRadioButton> buttons*/) {
 		   setkSession(kcontainer.newKieSession("netflix-rules"));
 //           kSession.setGlobal( "frame", frame);
-		   kSession.setGlobal("buttons", buttons);
+		   //kSession.setGlobal("buttons", buttons);
 		   kSession.setGlobal("textPane", textPane);
 	       getkSession().fireAllRules();
 

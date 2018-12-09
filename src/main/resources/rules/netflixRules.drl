@@ -19,7 +19,7 @@ import javax.swing.JRadioButton
 global JTextPane textPane
 
 //problem z arraylist, drools nie chce przemielic - pojedyncze buttony?
-global List buttons 
+//global List buttons 
 
 
 
@@ -27,8 +27,9 @@ rule 'Init'
 	when
 	then
 		System.out.println("init");
-		buttons = new ArrayList <JRadioButton>;
-		addQuestion(textPane, buttons, 
+		//buttons = new ArrayList <JRadioButton>;
+		addQuestion(textPane, 
+		 	//buttons, 
 			new Question("What SF series should I watch on Netflix?", 
 			Arrays.asList("SciFi", "Horror", "Slipstream", "Fantasy")));
 end
@@ -40,26 +41,30 @@ rule 'Scifi'
 		
 	then
 		System.out.println("scifi");
-		addQuestion(textPane, buttons, 
+		addQuestion(textPane, 
+			//buttons, 
 			new Question("Like anthologies?", 
 			Arrays.asList("Yep", "Nope")));
 		
 end
 
 
-function void addQuestion(JTextPane textPane, List <JRadioButton> buttons, Question question) {
+function void addQuestion(JTextPane textPane, /*List <JRadioButton> buttons,*/ Question question) {
 	
+	textPane.setText(question.description);
+	
+	/*
 	for (JRadioButton jRadioButton : buttons) {
 		jRadioButton.setVisible(false);	
 	}
 	
-	textPane.setText(question.description);
 	int i = 0;
 	for (String choice : question.choices) {
 			buttons.get(i).setText(choice);
 			buttons.get(i).setVisible(true);
 			i++;				
 		}
+	*/
 }
 
 
