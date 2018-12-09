@@ -29,22 +29,1015 @@ rule 'Init'
 		System.out.println("init");
 		//buttons = new ArrayList <JRadioButton>;
 		addQuestion(textPane, 
-		 	buttons, 
+		 	//buttons, 
 			new Question("What SF series should I watch on Netflix?", 
 			Arrays.asList("SciFi", "Horror", "Slipstream", "Fantasy")));
 end
 
-rule 'Scifi'
+
+rule 'What SF series should I watch on Netflix? SciFi'
 	when 
-		q : Question(description.equals("What SF series should I watch on Netflix?") && selected.equals("SciFi"))
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("SciFi"))
 		
 	then
-		System.out.println("scifi");
+		System.out.println("What SF series should I watch on Netflix? SciFi");
 		addQuestion(textPane, 
 			buttons, 
 			new Question("Like anthologies?", 
-			Arrays.asList("Yep", "Nope")));
+			Arrays.asList("Yep", "Nope")));		
+end
+
+
+rule 'What SF series should I watch on Netflix? SciFi; Like anthologies? Yep'
+	when 
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("SciFi"))
+		q2 : Question(description.equals("Like anthologies?") 
+			&& selected.equals("Yep"))
 		
+	then
+		System.out.println("Like anthologies? Yep");
+		happyEnd("The outer limits");		
+end
+
+
+rule 'What SF series should I watch on Netflix? SciFi; Like anthologies? Nope'
+	when 
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("SciFi"))
+		q2 : Question(description.equals("Like anthologies?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Like anthologies? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Space Opera or close to home?", 
+			Arrays.asList("Stars", "Home")));		
+end
+
+
+rule 'Space Opera or close to home? Home'
+	when 
+		q : Question(description.equals("Space Opera or close to home?") 
+			&& selected.equals("Home"))
+		
+	then
+		System.out.println("Space Opera or close to home? Home");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Friendlies or invaders?", 
+			Arrays.asList("Friends", "Invaders")));		
+end
+
+
+rule 'Friendlies or invaders? Friends'
+	when 
+		q : Question(description.equals("Friendlies or invaders?") 
+			&& selected.equals("Friends"))
+		
+	then
+		System.out.println("Friendlies or invaders? Friends");
+		happyEnd("Alien nation");	
+end
+
+
+rule 'Friendlies or invaders? Invaders'
+	when 
+		q : Question(description.equals("Friendlies or invaders?") 
+			&& selected.equals("Invaders"))
+		
+	then
+		System.out.println("Friendlies or invaders? Invaders");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Animated or Live Action?", 
+			Arrays.asList("Toons", "Live")));		
+end
+
+
+rule 'Friendlies or invaders? Invaders; Animated or Live Action? Live'
+	when 
+		q : Question(description.equals("Friendlies or invaders?") 
+			&& selected.equals("Invaders"))
+		q2 : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Live"))
+		
+	then
+		System.out.println("Animated or Live Action? Live");
+		happyEnd("V");		
+end
+
+
+rule 'Friendlies or invaders? Invaders; Animated or Live Action? Toons'
+	when 
+		q : Question(description.equals("Friendlies or invaders?") 
+			&& selected.equals("Invaders"))
+		q2 : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Toons"))
+		
+	then
+		System.out.println("Animated or Live Action? Toons");
+		happyEnd("Invader Zim");		
+end
+
+
+rule 'Space Opera or close to home? Stars'
+	when 
+		q : Question(description.equals("Space Opera or close to home?") 
+			&& selected.equals("Stars"))
+		
+	then
+		System.out.println("Space Opera or close to home? Stars");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Comedy?", 
+			Arrays.asList("Yep", "Nope")));		
+end
+
+
+rule 'Comedy? Nope'
+	when 
+		q : Question(description.equals("Comedy?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Comedy? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Trekkie?", 
+			Arrays.asList("Yep", "Nope", "Yep. But seen em all 1000X")));		
+end
+
+
+rule 'Trekkie? Yep. But seen em all 1000X'
+	when 
+		q : Question(description.equals("Trekkie?") 
+			&& selected.equals("Yep. But seen em all 1000X"))
+		
+	then
+		System.out.println("Trekkie? Yep. But seen em all 1000X");
+		happyEnd("Earth final conflict");		
+end
+
+
+rule 'Trekkie? Yep'
+	when 
+		q : Question(description.equals("Trekkie?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Trekkie? Yep");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Will Wheaton?", 
+			Arrays.asList("Woot", "NOOOO!")));				
+end
+
+
+rule 'Will Wheaton? Woot'
+	when 
+		q : Question(description.equals("Will Wheaton?") 
+			&& selected.equals("Woot"))
+		
+	then
+		System.out.println("Will Wheaton? Woot");
+		happyEnd("Star Trek: The next generation");			
+end
+
+
+rule 'Will Wheaton? NOOOO!'
+	when 
+		q : Question(description.equals("Will Wheaton?") 
+			&& selected.equals("NOOOO!"))
+		
+	then
+		System.out.println("Will Wheaton? NOOOO!");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("What do you study?", 
+			Arrays.asList("Poli-sci", "Womens Lib", "Sociology", "History")));	
+end
+
+
+rule 'What do you study? Poli-sci'
+	when 
+		q : Question(description.equals("What do you study?") 
+			&& selected.equals("Poli-sci"))
+		
+	then
+		System.out.println("What do you study? Poli-sci");
+		happyEnd("Star Trek: Deep space nine");	
+end
+
+
+rule 'What do you study? Womens Lib'
+	when 
+		q : Question(description.equals("What do you study?") 
+			&& selected.equals("Womens Lib"))
+		
+	then
+		System.out.println("What do you study? Womens Lib");
+		happyEnd("Star Trek: Voyager");	
+end
+
+
+rule 'What do you study? Sociology'
+	when 
+		q : Question(description.equals("What do you study?") 
+			&& selected.equals("Sociology"))
+		
+	then
+		System.out.println("What do you study? Sociology");
+		happyEnd("Star Trek: The original series");	
+end
+
+
+rule 'What do you study? History'
+	when 
+		q : Question(description.equals("What do you study?") 
+			&& selected.equals("History"))
+		
+	then
+		System.out.println("What do you study? History");
+		happyEnd("Star Trek: Enterprise");	
+end
+
+
+rule 'Trekkie? Nope'
+	when 
+		q : Question(description.equals("Trekkie?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Trekkie? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Like westerns?", 
+			Arrays.asList("Yep", "Nope")));				
+end
+
+
+rule 'Like westerns? Nope'
+	when 
+		q : Question(description.equals("Like westerns?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Like westerns? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Time/space Gateways?", 
+			Arrays.asList("Yep", "Nope")));				
+end
+
+
+rule 'Time/space Gateways? Yep'
+	when 
+		q : Question(description.equals("Time/space Gateways?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Time/space Gateways? Yep");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("British or American?", 
+			Arrays.asList("UK", "USA")));				
+end
+
+
+rule 'Time/space Gateways? Yep; British or American? UK'
+	when 
+		q : Question(description.equals("Time/space Gateways?") 
+			&& selected.equals("Yep"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("UK"))
+		
+	then
+		System.out.println("British or American? UK");
+		happyEnd("Doctor Who");				
+end
+
+
+rule 'Time/space Gateways? Yep; British or American? USA'
+	when 
+		q : Question(description.equals("Time/space Gateways?") 
+			&& selected.equals("Yep"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("USA"))
+		
+	then
+		System.out.println("British or American? USA");
+		happyEnd("Stargate");				
+end
+
+
+rule 'Time/space Gateways? Nope'
+	when 
+		q : Question(description.equals("Time/space Gateways?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Time/space Gateways? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Classic or Modern?", 
+			Arrays.asList("Classic", "Modern")));				
+end
+
+
+rule 'Classic or Modern? Modern'
+	when 
+		q : Question(description.equals("Classic or Modern?") 
+			&& selected.equals("Modern"))
+		
+	then
+		System.out.println("Classic or Modern? Modern");
+		happyEnd("Galactica");				
+end
+
+
+rule 'Classic or Modern? Classic'
+	when 
+		q : Question(description.equals("Classic or Modern?") 
+			&& selected.equals("Classic"))
+		
+	then
+		System.out.println("Classic or Modern? Classic");
+		happyEnd("Galactica");				
+end
+
+
+rule 'Like westerns? Yep'
+	when 
+		q : Question(description.equals("Like westerns?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Like westerns? Yep");
+		happyEnd("firefly");				
+end
+
+
+rule 'Comedy? Yep'
+	when 
+		q : Question(description.equals("Comedy?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Comedy? Yep");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("British or American?", 
+			Arrays.asList("UK", "USA")));		
+end
+
+
+rule 'Comedy? Yep; British or American? USA'
+	when 
+		q : Question(description.equals("Comedy?") 
+			&& selected.equals("Yep"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("USA"))
+		
+	then
+		System.out.println("British or American? USA");
+		happyEnd("Futurama");		
+end
+
+
+rule 'Comedy? Yep; British or American? UK'
+	when 
+		q : Question(description.equals("Comedy?") 
+			&& selected.equals("Yep"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("USA"))
+		
+	then
+		System.out.println("British or American? UK");
+		happyEnd("Red dwarf");		
+end
+
+
+rule 'What SF series should I watch on Netflix? Horror'
+	when 
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("Horror"))
+		
+	then
+		System.out.println("What SF series should I watch on Netflix? Horror");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Vampires or Zombies?", 
+			Arrays.asList("Vampires", "Zombies", "Neither")));		
+end
+
+
+rule 'Vampires or Zombies? Zombies'
+	when 
+		q : Question(description.equals("Vampires or Zombies?") 
+			&& selected.equals("Zombies"))
+		
+	then
+		System.out.println("Vampires or Zombies? Zombies");
+		happyEnd("The walking dead");		
+end
+
+
+rule 'Vampires or Zombies? Neither'
+	when 
+		q : Question(description.equals("Vampires or Zombies?") 
+			&& selected.equals("Neither"))
+		
+	then
+		System.out.println("Vampires or Zombies? Neither");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Like anthologies?", 
+			Arrays.asList("Yep", "Nope")));	
+end
+
+
+rule 'Vampires or Zombies? Neither; Like anthologies? Nope'
+	when 
+		q : Question(description.equals("Vampires or Zombies?") 
+			&& selected.equals("Neither"))
+		q2 : Question(description.equals("Like anthologies?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Like anthologies? Nope");
+		happyEnd("The charmed");	
+end
+
+
+rule 'Vampires or Zombies? Neither; Like anthologies? Yep'
+	when 
+		q : Question(description.equals("Vampires or Zombies?") 
+			&& selected.equals("Neither"))
+		q2 : Question(description.equals("Like anthologies?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Like anthologies? Yep");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Psychological or Gory?", 
+			Arrays.asList("Psycho", "Gory")));	
+end
+
+
+rule 'Psychological or Gory? Psycho'
+	when 
+		q : Question(description.equals("Psychological or Gory?") 
+			&& selected.equals("Psycho"))
+		
+	then
+		System.out.println("Psychological or Gory? Psycho");
+		happyEnd("The twilight zone");	
+end
+
+
+rule 'Psychological or Gory? Gory'
+	when 
+		q : Question(description.equals("Psychological or Gory?") 
+			&& selected.equals("Gory"))
+		
+	then
+		System.out.println("Psychological or Gory? Gory");
+		happyEnd("Tales from the crypt");	
+end
+
+
+rule 'Vampires or Zombies? Vampires'
+	when 
+		q : Question(description.equals("Vampires or Zombies?") 
+			&& selected.equals("Vampires"))
+		
+	then
+		System.out.println("Vampires or Zombies? Vampires");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("How old are you?", 
+			Arrays.asList("<16", ">16")));	
+end
+
+
+rule 'How old are you? >16'
+	when 
+		q : Question(description.equals("How old are you?") 
+			&& selected.equals(">16"))
+		
+	then
+		System.out.println("How old are you? >16");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("SFW or NSFW?", 
+			Arrays.asList("SFW", "NSFW")));	
+end
+
+
+rule 'SFW or NSFW? SFW'
+	when 
+		q : Question(description.equals("SFW or NSFW?") 
+			&& selected.equals("SFW"))
+		
+	then
+		System.out.println("SFW or NSFW? SFW");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Seen Buffy?", 
+			Arrays.asList("Yep", "Nope")));	
+end
+
+
+rule 'Seen Buffy? Nope'
+	when 
+		q : Question(description.equals("Seen Buffy?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Seen Buffy? Nope");
+		happyEnd("Buffy");	
+end
+
+
+rule 'Seen Buffy? Yep'
+	when 
+		q : Question(description.equals("Seen Buffy?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Seen Buffy? Yep");
+		happyEnd("Angel");	
+end
+
+
+rule 'SFW or NSFW? NSFW'
+	when 
+		q : Question(description.equals("SFW or NSFW?") 
+			&& selected.equals("NSFW"))
+		
+	then
+		System.out.println("SFW or NSFW? NSFW");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("British or American?", 
+			Arrays.asList("UK", "USA")));	
+end
+
+
+rule 'SFW or NSFW? NSFW; British or American? USA'
+	when 
+		q : Question(description.equals("SFW or NSFW?") 
+			&& selected.equals("NSFW"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("USA"))
+		
+	then
+		System.out.println("British or American? USA");
+		happyEnd("True blood");	
+end
+
+
+rule 'SFW or NSFW? NSFW; British or American? UK'
+	when 
+		q : Question(description.equals("SFW or NSFW?") 
+			&& selected.equals("NSFW"))
+		q2 : Question(description.equals("British or American?") 
+			&& selected.equals("UK"))
+		
+	then
+		System.out.println("British or American? UK");
+		happyEnd("Being human");	
+end
+
+
+rule 'How old are you? <16'
+	when 
+		q : Question(description.equals("How old are you?") 
+			&& selected.equals("<16"))
+		
+	then
+		System.out.println("How old are you? >16");
+		happyEnd("The vampire diaries");	
+end
+
+
+rule 'What SF series should I watch on Netflix? Slipstream'
+	when 
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("Slipstream"))
+		
+	then
+		System.out.println("What SF series should I watch on Netflix? Slipstream");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Action or Drama?", 
+			Arrays.asList("Action", "Drama")));		
+end
+
+
+rule 'Action or Drama? Drama'
+	when 
+		q : Question(description.equals("Action or Drama?") 
+			&& selected.equals("Drama"))
+		
+	then
+		System.out.println("Action or Drama? Drama");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Have you seen X-files?", 
+			Arrays.asList("Yep", "Nope", "Hated it")));		
+end
+
+
+rule 'Have you seen X-files? Nope'
+	when 
+		q : Question(description.equals("Have you seen X-files?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Have you seen X-files? Nope");
+		happyEnd("The X-files");		
+end
+
+
+rule 'Have you seen X-files? Hated it'
+	when 
+		q : Question(description.equals("Have you seen X-files?") 
+			&& selected.equals("Hated it"))
+		
+	then
+		System.out.println("Have you seen X-files? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Are you OK with being let down?", 
+			Arrays.asList("Yep", "Nope")));	
+end
+
+
+rule 'Are you OK with being let down? Yep'
+	when 
+		q : Question(description.equals("Are you OK with being let down?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Are you OK with being let down? Yep");
+		happyEnd("Lost");
+end
+
+
+rule 'Are you OK with being let down? Nope'
+	when 
+		q : Question(description.equals("Are you OK with being let down?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Are you OK with being let down? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("How do you feel about Scott Bakula?", 
+			Arrays.asList("Who?", "I'm a Fan")));	
+end
+
+
+rule 'How do you feel about Scott Bakula? Im a Fan?'
+	when 
+		q : Question(description.equals("How do you feel about Scott Bakula?") 
+			&& selected.equals("I'm a Fan"))
+		
+	then
+		System.out.println("How do you feel about Scott Bakula? I'm a Fan?");
+		happyEnd("Quantum Leap");
+end
+
+
+rule 'How do you feel about Scott Bakula? Who?'
+	when 
+		q : Question(description.equals("How do you feel about Scott Bakula?") 
+			&& selected.equals("Who?"))
+		
+	then
+		System.out.println("How do you feel about Scott Bakula? Who?");
+		happyEnd("Warehouse 13");
+end
+
+
+rule 'Have you seen X-files? Yep'
+	when 
+		q : Question(description.equals("Have you seen X-files?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Have you seen X-files? Yep");
+		happyEnd("Fringe");		
+end
+
+
+rule 'Action or Drama? Action'
+	when 
+		q : Question(description.equals("Action or Drama?") 
+			&& selected.equals("Action"))
+		
+	then
+		System.out.println("Action or Drama? Action");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Biopunk or Streampunk?", 
+			Arrays.asList("Streampunk", "Biopunk")));		
+end
+
+
+rule 'Biopunk or Streampunk? Biopunk'
+	when 
+		q : Question(description.equals("Biopunk or Streampunk?") 
+			&& selected.equals("Biopunk"))
+		
+	then
+		System.out.println("Biopunk or Streampunk? Biopunk");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Whedon or Cameron?", 
+			Arrays.asList("Cameron", "Whedon")));		
+end
+
+
+rule 'Whedon or Cameron? Whedon'
+	when 
+		q : Question(description.equals("Whedon or Cameron?") 
+			&& selected.equals("Whedon"))
+		
+	then
+		System.out.println("Whedon or Cameron? Whedon");
+		happyEnd("Dollhouse");		
+end
+
+
+rule 'Whedon or Cameron? Cameron'
+	when 
+		q : Question(description.equals("Whedon or Cameron?") 
+			&& selected.equals("Cameron"))
+		
+	then
+		System.out.println("Whedon or Cameron? Cameron");
+		happyEnd("Dark Angel");		
+end
+
+
+rule 'Biopunk or Streampunk? Streampunk'
+	when 
+		q : Question(description.equals("Biopunk or Streampunk?") 
+			&& selected.equals("Streampunk"))
+		
+	then
+		System.out.println("Biopunk or Streampunk? Streampunk");
+		happyEnd("Sanctuary");		
+end
+
+
+rule 'What SF series should I watch on Netflix? Fantasy'
+	when 
+		q : Question(description.equals("What SF series should I watch on Netflix?") 
+			&& selected.equals("Fantasy"))
+		
+	then
+		System.out.println("What SF series should I watch on Netflix? Fantasy");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Urban or Period?", 
+			Arrays.asList("Urban", "Period")));		
+end
+
+
+rule 'Urban or Period? Urban'
+	when 
+		q : Question(description.equals("Urban or Period?") 
+			&& selected.equals("Urban"))
+		
+	then
+		System.out.println("Urban or Period? Urban");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Like Superheroes?", 
+			Arrays.asList("Yep", "Nope")));		
+end
+
+
+rule 'Like Superheroes? Yep'
+	when 
+		q : Question(description.equals("Like Superheroes?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Like Superheroes? Urban");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Animated or Live Action?", 
+			Arrays.asList("Live", "Toons")));		
+end
+
+
+rule 'Like Superheroes? Yep; Animated or Live Action? Toons'
+	when 
+		q : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Toons"))
+		q2 : Question(description.equals("Like Superheroes?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Animated or Live Action? Yep");
+		happyEnd("The Tick");		
+end
+
+
+rule 'Like Superheroes? Yep; Animated or Live Action? Live'
+	when 
+		q : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Live"))
+		q2 : Question(description.equals("Like Superheroes?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Animated or Live Action? Live");
+		happyEnd("SmallVille");		
+end
+
+
+rule 'Like Superheroes? Nope'
+	when 
+		q : Question(description.equals("Like Superheroes?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Like Superheroes? Nope");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("How about Mythology?", 
+			Arrays.asList("Yep", "Nope")));	
+end
+
+
+rule 'How about Mythology? Yep'
+	when 
+		q : Question(description.equals("How about Mythology?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("How about Mythology? Yep");
+		happyEnd("Highlander");
+end
+
+
+rule 'How about Mythology? Nope'
+	when 
+		q : Question(description.equals("How about Mythology?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("How about Mythology? Nope");
+		happyEnd("Dresden files");
+end
+
+
+rule 'Urban or Period? Period'
+	when 
+		q : Question(description.equals("Urban or Period?") 
+			&& selected.equals("Period"))
+		
+	then
+		System.out.println("Urban or Period? Period");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Myths or Legends?", 
+			Arrays.asList("Myths", "Legends")));		
+end
+
+
+rule 'Myths or Legends? Myths'
+	when 
+		q : Question(description.equals("Myths or Legends?") 
+			&& selected.equals("Myths"))
+		
+	then
+		System.out.println("Myths or Legends? Myths");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Buff Dudes of Hot Girls?", 
+			Arrays.asList("Dudes", "Ladies")));		
+end
+
+
+rule 'Buff Dudes of Hot Girls? Ladies'
+	when 
+		q : Question(description.equals("Buff Dudes of Hot Girls?") 
+			&& selected.equals("Ladies"))
+		
+	then
+		System.out.println("Buff Dudes of Hot Girls? Ladies");
+		happyEnd("Xena");		
+end
+
+
+rule 'Buff Dudes of Hot Girls? Dudes'
+	when 
+		q : Question(description.equals("Buff Dudes of Hot Girls?") 
+			&& selected.equals("Dudes"))
+		
+	then
+		System.out.println("Buff Dudes of Hot Girls? Dudes");
+		happyEnd("Hercules");		
+end
+
+
+rule 'Myths or Legends? Legends'
+	when 
+		q : Question(description.equals("Myths or Legends?") 
+			&& selected.equals("Legends"))
+		
+	then
+		System.out.println("Myths or Legends? Legends");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Animated or Live Action?", 
+			Arrays.asList("Toons", "Live")));		
+end
+
+
+rule 'Myths or Legends? Legends; Animated or Live Action? Live'
+	when 
+		q : Question(description.equals("Myths or Legends?") 
+			&& selected.equals("Legends"))
+		q2 : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Live"))
+		
+	then
+		System.out.println("Animated or Live Action? Live");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Like lots of nudity?", 
+			Arrays.asList("Yep", "Nope")));		
+end
+
+
+rule 'Like lots of nudity? Yep'
+	when 
+		q : Question(description.equals("Like lots of nudity?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Like lots of nudity? Yep");
+		happyEnd("Spartacus");	
+end
+
+
+rule 'Like lots of nudity? Nope'
+	when 
+		q : Question(description.equals("Like lots of nudity?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Like lots of nudity? Nope");
+		happyEnd("Legend seeker");	
+end
+
+
+rule 'Myths or Legends? Legends; Animated or Live Action? Toons'
+	when 
+		q : Question(description.equals("Myths or Legends?") 
+			&& selected.equals("Legends"))
+		q2 : Question(description.equals("Animated or Live Action?") 
+			&& selected.equals("Toons"))
+		
+	then
+		System.out.println("Animated or Live Action? Toons");
+		addQuestion(textPane, 
+			buttons, 
+			new Question("Do you have a Gameboy?", 
+			Arrays.asList("Yep", "Nope")));		
+end
+
+
+rule 'Do you have a Gameboy? Nope'
+	when 
+		q : Question(description.equals("Do you have a Gameboy?") 
+			&& selected.equals("Nope"))
+		
+	then
+		System.out.println("Do you have a Gameboy? Nope");
+		happyEnd("Avatar");	
+end
+
+
+rule 'Do you have a Gameboy? Yep'
+	when 
+		q : Question(description.equals("Do you have a Gameboy?") 
+			&& selected.equals("Yep"))
+		
+	then
+		System.out.println("Do you have a Gameboy? Yep");
+		happyEnd("Pokemon");	
 end
 
 
