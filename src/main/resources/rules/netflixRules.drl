@@ -413,7 +413,7 @@ rule 'Comedy? Yep; British or American? UK'
 		q : Question(description.equals("Comedy?") 
 			&& selected.equals("Yep"))
 		q2 : Question(description.equals("British or American?") 
-			&& selected.equals("USA"))
+			&& selected.equals("UK"))
 		
 	then
 		System.out.println("British or American? UK");
