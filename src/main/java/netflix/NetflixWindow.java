@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import netflix.Netflix.NetflixCallback;
 import netflix.Netflix.Question;
+import javax.swing.JToggleButton;
 
 public class NetflixWindow extends JFrame {
 
@@ -33,7 +34,7 @@ public class NetflixWindow extends JFrame {
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private List<JRadioButton> buttons = new ArrayList<>();
 	private JTextPane textPane;
-	private JButton buttonOK;
+	private JToggleButton buttonOK;
 	private JButton buttonStart;
 	private JPanel panelQuestion;
 	private JPanel panelStart;
@@ -48,7 +49,7 @@ public class NetflixWindow extends JFrame {
 		setResizable(false);
 		this.callback = callback;
         initUI();	
-        
+
     }
 
 
@@ -82,12 +83,13 @@ public class NetflixWindow extends JFrame {
 		buttons.add(radioButton2);
 		buttons.add(radioButton3);
 		
-		buttonOK = new JButton("OK");
-		buttonOK.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				buttonOKActionPerformed(e);
-			}
-		});
+		buttonOK = new JToggleButton("OK");
+		
+//		buttonOK.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				buttonOKActionPerformed(e);
+//			}
+//		});
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
@@ -211,28 +213,34 @@ public class NetflixWindow extends JFrame {
 		CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 		cardLayout.next(contentPane);
 		
-		callback.start(contentPane, textPane, buttons, endText);
+		callback.start(contentPane, textPane, buttons, endText, buttonOK, buttonGroup);
 	}
+	
 	
 	/**
 	 * Choose the answer
 	 * @param e
 	 */
-	private void buttonOKActionPerformed(ActionEvent e) { 
-		if (buttonGroup.getSelection() != null) {
-			Question question = new Question();
-	        question.description = textPane.getText();
-	        for (JRadioButton jRadioButton : buttons) {
-				if(jRadioButton.isSelected()) {
-					question.selected = jRadioButton.getText();
-				}
-			}
-			callback.accept(question);
-			buttonGroup.clearSelection();				
-			
-		}
-		
-	}
+	
+//	private void buttonOKActionPerformed(ActionEvent e) {
+//		
+//		System.out.println(buttonOK.isSelected());
+//		
+//		if (buttonGroup.getSelection() != null) {
+//			Question question = new Question();
+//	        question.description = textPane.getText();
+//	        for (JRadioButton jRadioButton : buttons) {
+//				if(jRadioButton.isSelected()) {
+//					question.selected = jRadioButton.getText();
+//				}
+//			}
+//			callback.accept(question);
+//			buttonGroup.clearSelection();				
+//			
+//		}
+//		
+//	}
+	
 	
 	private void buttonRestartActionPerformed(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout)contentPane.getLayout();

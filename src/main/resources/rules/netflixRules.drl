@@ -9,9 +9,13 @@ import java.util.List
 import java.util.Arrays
 import java.util.ArrayList
 
+import org.kie.api.runtime.KieRuntime
+
 import javax.swing.JPanel
 import javax.swing.JTextPane
 import javax.swing.JRadioButton
+import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton
 import java.awt.CardLayout
 
 
@@ -21,6 +25,8 @@ global JPanel contentPane
 global JTextPane textPane
 global ArrayList buttons 
 global JTextPane endText
+global JToggleButton buttonOK
+global ButtonGroup buttonGroup
 
 
 
@@ -29,8 +35,8 @@ rule 'Init'
 	when
 	then
 		System.out.println("init");
-		addQuestion(textPane, 
-		 	buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+		 	buttons, buttonOK, buttonGroup,
 			new Question("What SF series should I watch on Netflix?", 
 			Arrays.asList("SciFi", "Horror", "Slipstream", "Fantasy")));
 end
@@ -43,8 +49,8 @@ rule 'What SF series should I watch on Netflix? SciFi'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? SciFi");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Like anthologies?", 
 			Arrays.asList("Yep", "Nope")));		
 end
@@ -72,8 +78,8 @@ rule 'What SF series should I watch on Netflix? SciFi; Like anthologies? Nope'
 		
 	then
 		System.out.println("Like anthologies? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Space Opera or close to home?", 
 			Arrays.asList("Stars", "Home")));		
 end
@@ -86,8 +92,8 @@ rule 'Space Opera or close to home? Home'
 		
 	then
 		System.out.println("Space Opera or close to home? Home");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Friendlies or invaders?", 
 			Arrays.asList("Friends", "Invaders")));		
 end
@@ -111,8 +117,8 @@ rule 'Friendlies or invaders? Invaders'
 		
 	then
 		System.out.println("Friendlies or invaders? Invaders");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Animated or Live Action?", 
 			Arrays.asList("Toons", "Live")));		
 end
@@ -151,8 +157,8 @@ rule 'Space Opera or close to home? Stars'
 		
 	then
 		System.out.println("Space Opera or close to home? Stars");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Comedy?", 
 			Arrays.asList("Yep", "Nope")));		
 end
@@ -165,8 +171,8 @@ rule 'Comedy? Nope'
 		
 	then
 		System.out.println("Comedy? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Trekkie?", 
 			Arrays.asList("Yep", "Nope", "Yep. But seen em all 1000X")));		
 end
@@ -190,8 +196,8 @@ rule 'Trekkie? Yep'
 		
 	then
 		System.out.println("Trekkie? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Will Wheaton?", 
 			Arrays.asList("Woot", "NOOOO!")));				
 end
@@ -215,8 +221,8 @@ rule 'Will Wheaton? NOOOO!'
 		
 	then
 		System.out.println("Will Wheaton? NOOOO!");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("What do you study?", 
 			Arrays.asList("Poli-sci", "Womens Lib", "Sociology", "History")));	
 end
@@ -273,8 +279,8 @@ rule 'Trekkie? Nope'
 		
 	then
 		System.out.println("Trekkie? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Like westerns?", 
 			Arrays.asList("Yep", "Nope")));				
 end
@@ -287,8 +293,8 @@ rule 'Like westerns? Nope'
 		
 	then
 		System.out.println("Like westerns? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Time/space Gateways?", 
 			Arrays.asList("Yep", "Nope")));				
 end
@@ -301,8 +307,8 @@ rule 'Time/space Gateways? Yep'
 		
 	then
 		System.out.println("Time/space Gateways? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("British or American?", 
 			Arrays.asList("UK", "USA")));				
 end
@@ -341,8 +347,8 @@ rule 'Time/space Gateways? Nope'
 		
 	then
 		System.out.println("Time/space Gateways? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Classic or Modern?", 
 			Arrays.asList("Classic", "Modern")));				
 end
@@ -388,8 +394,8 @@ rule 'Comedy? Yep'
 		
 	then
 		System.out.println("Comedy? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("British or American?", 
 			Arrays.asList("UK", "USA")));		
 end
@@ -428,8 +434,8 @@ rule 'What SF series should I watch on Netflix? Horror'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Horror");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Vampires or Zombies?", 
 			Arrays.asList("Vampires", "Zombies", "Neither")));		
 end
@@ -453,8 +459,8 @@ rule 'Vampires or Zombies? Neither'
 		
 	then
 		System.out.println("Vampires or Zombies? Neither");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Like anthologies?", 
 			Arrays.asList("Yep", "Nope")));	
 end
@@ -482,8 +488,8 @@ rule 'Vampires or Zombies? Neither; Like anthologies? Yep'
 		
 	then
 		System.out.println("Like anthologies? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Psychological or Gory?", 
 			Arrays.asList("Psycho", "Gory")));	
 end
@@ -518,8 +524,8 @@ rule 'Vampires or Zombies? Vampires'
 		
 	then
 		System.out.println("Vampires or Zombies? Vampires");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("How old are you?", 
 			Arrays.asList("<16", ">16")));	
 end
@@ -532,8 +538,8 @@ rule 'How old are you? >16'
 		
 	then
 		System.out.println("How old are you? >16");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("SFW or NSFW?", 
 			Arrays.asList("SFW", "NSFW")));	
 end
@@ -546,8 +552,8 @@ rule 'SFW or NSFW? SFW'
 		
 	then
 		System.out.println("SFW or NSFW? SFW");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Seen Buffy?", 
 			Arrays.asList("Yep", "Nope")));	
 end
@@ -582,8 +588,8 @@ rule 'SFW or NSFW? NSFW'
 		
 	then
 		System.out.println("SFW or NSFW? NSFW");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("British or American?", 
 			Arrays.asList("UK", "USA")));	
 end
@@ -633,8 +639,8 @@ rule 'What SF series should I watch on Netflix? Slipstream'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Slipstream");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Action or Drama?", 
 			Arrays.asList("Action", "Drama")));		
 end
@@ -647,8 +653,8 @@ rule 'Action or Drama? Drama'
 		
 	then
 		System.out.println("Action or Drama? Drama");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Have you seen X-files?", 
 			Arrays.asList("Yep", "Nope", "Hated it")));		
 end
@@ -672,8 +678,8 @@ rule 'Have you seen X-files? Hated it'
 		
 	then
 		System.out.println("Have you seen X-files? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Are you OK with being let down?", 
 			Arrays.asList("Yep", "Nope")));	
 end
@@ -697,8 +703,8 @@ rule 'Are you OK with being let down? Nope'
 		
 	then
 		System.out.println("Are you OK with being let down? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("How do you feel about Scott Bakula?", 
 			Arrays.asList("Who?", "I'm a Fan")));	
 end
@@ -744,8 +750,8 @@ rule 'Action or Drama? Action'
 		
 	then
 		System.out.println("Action or Drama? Action");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Biopunk or Streampunk?", 
 			Arrays.asList("Streampunk", "Biopunk")));		
 end
@@ -758,8 +764,8 @@ rule 'Biopunk or Streampunk? Biopunk'
 		
 	then
 		System.out.println("Biopunk or Streampunk? Biopunk");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Whedon or Cameron?", 
 			Arrays.asList("Cameron", "Whedon")));		
 end
@@ -805,8 +811,8 @@ rule 'What SF series should I watch on Netflix? Fantasy'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Fantasy");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Urban or Period?", 
 			Arrays.asList("Urban", "Period")));		
 end
@@ -819,8 +825,8 @@ rule 'Urban or Period? Urban'
 		
 	then
 		System.out.println("Urban or Period? Urban");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Like Superheroes?", 
 			Arrays.asList("Yep", "Nope")));		
 end
@@ -833,8 +839,8 @@ rule 'Like Superheroes? Yep'
 		
 	then
 		System.out.println("Like Superheroes? Urban");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Animated or Live Action?", 
 			Arrays.asList("Live", "Toons")));		
 end
@@ -873,8 +879,8 @@ rule 'Like Superheroes? Nope'
 		
 	then
 		System.out.println("Like Superheroes? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("How about Mythology?", 
 			Arrays.asList("Yep", "Nope")));	
 end
@@ -909,8 +915,8 @@ rule 'Urban or Period? Period'
 		
 	then
 		System.out.println("Urban or Period? Period");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Myths or Legends?", 
 			Arrays.asList("Myths", "Legends")));		
 end
@@ -923,8 +929,8 @@ rule 'Myths or Legends? Myths'
 		
 	then
 		System.out.println("Myths or Legends? Myths");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Buff Dudes of Hot Girls?", 
 			Arrays.asList("Dudes", "Ladies")));		
 end
@@ -959,8 +965,8 @@ rule 'Myths or Legends? Legends'
 		
 	then
 		System.out.println("Myths or Legends? Legends");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Animated or Live Action?", 
 			Arrays.asList("Toons", "Live")));		
 end
@@ -975,8 +981,8 @@ rule 'Myths or Legends? Legends; Animated or Live Action? Live'
 		
 	then
 		System.out.println("Animated or Live Action? Live");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Like lots of nudity?", 
 			Arrays.asList("Yep", "Nope")));		
 end
@@ -1013,8 +1019,8 @@ rule 'Myths or Legends? Legends; Animated or Live Action? Toons'
 		
 	then
 		System.out.println("Animated or Live Action? Toons");
-		addQuestion(textPane, 
-			buttons, 
+		addQuestion(kcontext.getKieRuntime(), textPane, 
+			buttons, buttonOK, buttonGroup,
 			new Question("Do you have a Gameboy?", 
 			Arrays.asList("Yep", "Nope")));		
 end
@@ -1042,13 +1048,13 @@ rule 'Do you have a Gameboy? Yep'
 end
 
 
-function void addQuestion(JTextPane textPane, ArrayList buttons, Question question) {
+function void addQuestion(KieRuntime krt, JTextPane textPane, ArrayList buttons, JToggleButton buttonOK, ButtonGroup buttonGroup, Question question) {
 	
 	textPane.setText(question.description);
 	
 	
-	for (JRadioButton jRadioButton : (List <JRadioButton>) buttons) {
-		jRadioButton.setVisible(false);	
+	for (JRadioButton jButton : (List <JRadioButton>) buttons) {
+		jButton.setVisible(false);	
 	}
 	
 	int i = 0;
@@ -1058,7 +1064,30 @@ function void addQuestion(JTextPane textPane, ArrayList buttons, Question questi
 			i++;				
 		}
 	
+	
+	while(buttonOK.isSelected() == false || buttonGroup.getSelection()== null) {
+		if (buttonGroup.getSelection() != null) {
+	        for (JRadioButton jRadioButton : (List <JRadioButton>)buttons) {
+				if(jRadioButton.isSelected()) {
+					question.selected = jRadioButton.getText();
+				}
+			}
+			krt.insert(question);	
+		}
+		else {
+			buttonOK.setSelected(false);
+			System.out.print("");
+		}
+	}
+	buttonOK.setSelected(false);
+	buttonGroup.clearSelection();
+	
 }
+
+
+
+
+
 
 function void happyEnd(JPanel contentPane, JTextPane endText, String ending) {
 	
@@ -1066,6 +1095,7 @@ function void happyEnd(JPanel contentPane, JTextPane endText, String ending) {
 	cardLayout.next(contentPane);
 	
 	endText.setText("Congratulations you come to the end!\nYou should watch " + ending);
+	System.out.println("End: " + ending);
 	
 }
 
