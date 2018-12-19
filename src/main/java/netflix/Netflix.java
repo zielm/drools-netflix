@@ -1,9 +1,7 @@
 package netflix;
 
-import java.util.List;
-
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -51,43 +49,15 @@ public class Netflix {
 	        this.kcontainer = kcontainer;
 	    }
 	    
-	   public void start(JPanel contentPane, JTextPane textPane, List<JRadioButton> buttons, JTextPane endText) {
+	   public void start(JFrame frame, JTextPane endText) {
 		   setkSession(kcontainer.newKieSession("netflix-rules"));
-		   kSession.setGlobal("contentPane", contentPane);
-		   kSession.setGlobal("buttons", buttons);
-		   kSession.setGlobal("textPane", textPane);
 		   kSession.setGlobal("endText", endText);
+		   kSession.setGlobal("frame", frame);
 	       getkSession().fireAllRules();
 
 	   }
-	    
-	    public void accept(Question question) {
-	        kSession.insert( question );
-	        kSession.fireAllRules();
-	
-	    }
 	}
 	
-
-	public static class Question {
-		
-		public String description;
-		public List<String> choices;
-		public String selected;
-		
-		public Question() {
-			description = "";
-			choices = null;
-			selected = "";
-		}
-		
-		public Question(String description, List<String> choices) {
-			this.description = description;
-			this.choices = choices;
-			selected = "";
-		}
-		
-	}
  
 
 }

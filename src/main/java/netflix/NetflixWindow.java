@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
@@ -18,7 +19,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import netflix.Netflix.NetflixCallback;
-import netflix.Netflix.Question;
 
 public class NetflixWindow extends JFrame {
 
@@ -30,12 +30,7 @@ public class NetflixWindow extends JFrame {
 	private NetflixCallback callback;
 
 	private JPanel contentPane;
-	private ButtonGroup buttonGroup = new ButtonGroup();
-	private List<JRadioButton> buttons = new ArrayList<>();
-	private JTextPane textPane;
-	private JButton buttonOK;
 	private JButton buttonStart;
-	private JPanel panelQuestion;
 	private JPanel panelStart;
 	private JPanel panelEnd;
 	private JTextPane endText;
@@ -62,39 +57,8 @@ public class NetflixWindow extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		panelQuestion = new JPanel();
-		
-		JRadioButton radioButton1 = new JRadioButton("choice 1");
-		buttonGroup.add(radioButton1);
-		
-		JRadioButton radioButton0 = new JRadioButton("choice 0");
-		buttonGroup.add(radioButton0);			
-				
-		JRadioButton radioButton2 = new JRadioButton("choice 2");
-		buttonGroup.add(radioButton2);
-				
-		JRadioButton radioButton3 = new JRadioButton("choice 3");
-		buttonGroup.add(radioButton3);
-		
-		buttons.add(radioButton0);
-		buttons.add(radioButton1);
-		buttons.add(radioButton2);
-		buttons.add(radioButton3);
-		
-		buttonOK = new JButton("OK");
-		buttonOK.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				buttonOKActionPerformed(e);
-			}
-		});
-		
-		textPane = new JTextPane();
-		textPane.setEditable(false);
 		contentPane.setLayout(new CardLayout(0, 0));
-		
-		panelStart = new JPanel();
-		
+		panelStart = new JPanel();		
 		buttonStart = new JButton("START");
 		buttonStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,39 +82,6 @@ public class NetflixWindow extends JFrame {
 					.addContainerGap(109, Short.MAX_VALUE))
 		);
 		panelStart.setLayout(gl_panelStart);
-		GroupLayout gl_panelQuestion = new GroupLayout(panelQuestion);
-		gl_panelQuestion.setHorizontalGroup(
-			gl_panelQuestion.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelQuestion.createSequentialGroup()
-					.addGap(147)
-					.addGroup(gl_panelQuestion.createParallelGroup(Alignment.LEADING)
-						.addComponent(radioButton0, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-						.addComponent(radioButton1, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-						.addComponent(radioButton2, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-						.addComponent(radioButton3, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-						.addComponent(buttonOK, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
-					.addGap(138))
-				.addGroup(Alignment.LEADING, gl_panelQuestion.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panelQuestion.setVerticalGroup(
-			gl_panelQuestion.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelQuestion.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(radioButton0)
-					.addComponent(radioButton1)
-					.addComponent(radioButton2)
-					.addComponent(radioButton3)
-					.addGap(2)
-					.addComponent(buttonOK)
-					.addContainerGap(102, Short.MAX_VALUE))
-		);
-		panelQuestion.setLayout(gl_panelQuestion);
-		contentPane.add(panelQuestion, "name_60576457343619");
 		
 		panelEnd = new JPanel();
 		contentPane.add(panelEnd, "name_14516770409146");
@@ -210,31 +141,11 @@ public class NetflixWindow extends JFrame {
 	private void buttonStartActionPerformed(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 		cardLayout.next(contentPane);
-		
-		callback.start(contentPane, textPane, buttons, endText);
-	}
-	
-	/**
-	 * Choose the answer
-	 * @param e
-	 */
-	private void buttonOKActionPerformed(ActionEvent e) { 
-		if (buttonGroup.getSelection() != null) {
-			Question question = new Question();
-	        question.description = textPane.getText();
-	        for (JRadioButton jRadioButton : buttons) {
-				if(jRadioButton.isSelected()) {
-					question.selected = jRadioButton.getText();
-				}
-			}
-			callback.accept(question);
-			buttonGroup.clearSelection();				
-			
-		}
-		
+		callback.start(this, endText);
 	}
 	
 	private void buttonRestartActionPerformed(ActionEvent e) {
+		endText.setText("");
 		CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 		cardLayout.next(contentPane);
 	}
