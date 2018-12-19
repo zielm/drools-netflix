@@ -2,35 +2,41 @@
 package netflix
 
 //list any import classes here.
-import netflix.Netflix.Question
-import netflix.Netflix.NetflixWindow
+import org.kie.api.runtime.KieRuntime
 
 import java.util.List
 import java.util.Arrays
 import java.util.ArrayList
 
 import javax.swing.JFrame
+import javax.swing.JPanel
 import javax.swing.JTextPane
+import javax.swing.JOptionPane
 import javax.swing.JRadioButton
+import javax.swing.ButtonGroup
+
 
 
 //declare any global variables here
 //global JFrame frame
-global JTextPane textPane
+global JFrame frame
+global JTextPane endText
 
-//problem z arraylist, drools nie chce przemielic - pojedyncze buttony?
-global ArrayList buttons 
-
+declare Question
+	description : String @key
+	choices : String[] @key
+	selected: String
+end
 
 
 rule 'Init'
 	when
 	then
 		System.out.println("init");
-		addQuestion(textPane, 
-		 	buttons, 
-			new Question("What SF series should I watch on Netflix?", 
-			Arrays.asList("SciFi", "Horror", "Slipstream", "Fantasy")));
+		String[] list = {"SciFi", "Horror", "Slipstream", "Fantasy"};
+		addQuestion(kcontext.getKieRuntime(), 
+		 	frame,
+			new Question("What SF series should I watch on Netflix?", list));
 end
 
 
@@ -41,10 +47,10 @@ rule 'What SF series should I watch on Netflix? SciFi'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? SciFi");
-		addQuestion(textPane, 
-			buttons, 
-			new Question("Like anthologies?", 
-			Arrays.asList("Yep", "Nope")));		
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
+			new Question("Like anthologies?", list));		
 end
 
 
@@ -57,7 +63,7 @@ rule 'What SF series should I watch on Netflix? SciFi; Like anthologies? Yep'
 		
 	then
 		System.out.println("Like anthologies? Yep");
-		happyEnd("The outer limits");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "The outer limits");		
 end
 
 
@@ -70,10 +76,11 @@ rule 'What SF series should I watch on Netflix? SciFi; Like anthologies? Nope'
 		
 	then
 		System.out.println("Like anthologies? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Stars", "Home"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Space Opera or close to home?", 
-			Arrays.asList("Stars", "Home")));		
+			list ));		
 end
 
 
@@ -84,10 +91,11 @@ rule 'Space Opera or close to home? Home'
 		
 	then
 		System.out.println("Space Opera or close to home? Home");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Friends", "Invaders"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Friendlies or invaders?", 
-			Arrays.asList("Friends", "Invaders")));		
+			list ));		
 end
 
 
@@ -98,7 +106,7 @@ rule 'Friendlies or invaders? Friends'
 		
 	then
 		System.out.println("Friendlies or invaders? Friends");
-		happyEnd("Alien nation");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Alien nation");	
 end
 
 
@@ -109,10 +117,11 @@ rule 'Friendlies or invaders? Invaders'
 		
 	then
 		System.out.println("Friendlies or invaders? Invaders");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Toons", "Live"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Animated or Live Action?", 
-			Arrays.asList("Toons", "Live")));		
+			list ));		
 end
 
 
@@ -125,7 +134,7 @@ rule 'Friendlies or invaders? Invaders; Animated or Live Action? Live'
 		
 	then
 		System.out.println("Animated or Live Action? Live");
-		happyEnd("V");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "V");		
 end
 
 
@@ -138,7 +147,7 @@ rule 'Friendlies or invaders? Invaders; Animated or Live Action? Toons'
 		
 	then
 		System.out.println("Animated or Live Action? Toons");
-		happyEnd("Invader Zim");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Invader Zim");		
 end
 
 
@@ -149,10 +158,11 @@ rule 'Space Opera or close to home? Stars'
 		
 	then
 		System.out.println("Space Opera or close to home? Stars");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Comedy?", 
-			Arrays.asList("Yep", "Nope")));		
+			list ));		
 end
 
 
@@ -163,10 +173,11 @@ rule 'Comedy? Nope'
 		
 	then
 		System.out.println("Comedy? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope", "Yep. But seen em all 1000X"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Trekkie?", 
-			Arrays.asList("Yep", "Nope", "Yep. But seen em all 1000X")));		
+			list ));		
 end
 
 
@@ -177,7 +188,7 @@ rule 'Trekkie? Yep. But seen em all 1000X'
 		
 	then
 		System.out.println("Trekkie? Yep. But seen em all 1000X");
-		happyEnd("Earth final conflict");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Earth final conflict");		
 end
 
 
@@ -188,10 +199,11 @@ rule 'Trekkie? Yep'
 		
 	then
 		System.out.println("Trekkie? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Woot", "NOOOO!"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Will Wheaton?", 
-			Arrays.asList("Woot", "NOOOO!")));				
+			list ));				
 end
 
 
@@ -202,7 +214,7 @@ rule 'Will Wheaton? Woot'
 		
 	then
 		System.out.println("Will Wheaton? Woot");
-		happyEnd("Star Trek: The next generation");			
+		happyEnd(kcontext.getKieRuntime(),  endText, "Star Trek: The next generation");			
 end
 
 
@@ -213,10 +225,11 @@ rule 'Will Wheaton? NOOOO!'
 		
 	then
 		System.out.println("Will Wheaton? NOOOO!");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Poli-sci", "Womens Lib", "Sociology", "History"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("What do you study?", 
-			Arrays.asList("Poli-sci", "Womens Lib", "Sociology", "History")));	
+			list ));	
 end
 
 
@@ -227,7 +240,7 @@ rule 'What do you study? Poli-sci'
 		
 	then
 		System.out.println("What do you study? Poli-sci");
-		happyEnd("Star Trek: Deep space nine");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Star Trek: Deep space nine");	
 end
 
 
@@ -238,7 +251,7 @@ rule 'What do you study? Womens Lib'
 		
 	then
 		System.out.println("What do you study? Womens Lib");
-		happyEnd("Star Trek: Voyager");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Star Trek: Voyager");	
 end
 
 
@@ -249,7 +262,7 @@ rule 'What do you study? Sociology'
 		
 	then
 		System.out.println("What do you study? Sociology");
-		happyEnd("Star Trek: The original series");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Star Trek: The original series");	
 end
 
 
@@ -260,7 +273,7 @@ rule 'What do you study? History'
 		
 	then
 		System.out.println("What do you study? History");
-		happyEnd("Star Trek: Enterprise");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Star Trek: Enterprise");	
 end
 
 
@@ -271,10 +284,11 @@ rule 'Trekkie? Nope'
 		
 	then
 		System.out.println("Trekkie? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Like westerns?", 
-			Arrays.asList("Yep", "Nope")));				
+			list ));				
 end
 
 
@@ -285,10 +299,11 @@ rule 'Like westerns? Nope'
 		
 	then
 		System.out.println("Like westerns? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Time/space Gateways?", 
-			Arrays.asList("Yep", "Nope")));				
+			list ));				
 end
 
 
@@ -299,10 +314,11 @@ rule 'Time/space Gateways? Yep'
 		
 	then
 		System.out.println("Time/space Gateways? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"UK", "USA"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("British or American?", 
-			Arrays.asList("UK", "USA")));				
+			list ));				
 end
 
 
@@ -315,7 +331,7 @@ rule 'Time/space Gateways? Yep; British or American? UK'
 		
 	then
 		System.out.println("British or American? UK");
-		happyEnd("Doctor Who");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "Doctor Who");				
 end
 
 
@@ -328,7 +344,7 @@ rule 'Time/space Gateways? Yep; British or American? USA'
 		
 	then
 		System.out.println("British or American? USA");
-		happyEnd("Stargate");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "Stargate");				
 end
 
 
@@ -339,10 +355,11 @@ rule 'Time/space Gateways? Nope'
 		
 	then
 		System.out.println("Time/space Gateways? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Classic", "Modern"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Classic or Modern?", 
-			Arrays.asList("Classic", "Modern")));				
+			list ));				
 end
 
 
@@ -353,7 +370,7 @@ rule 'Classic or Modern? Modern'
 		
 	then
 		System.out.println("Classic or Modern? Modern");
-		happyEnd("Galactica");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "Galactica: Season 1");				
 end
 
 
@@ -364,7 +381,7 @@ rule 'Classic or Modern? Classic'
 		
 	then
 		System.out.println("Classic or Modern? Classic");
-		happyEnd("Galactica");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "Galactica");				
 end
 
 
@@ -375,7 +392,7 @@ rule 'Like westerns? Yep'
 		
 	then
 		System.out.println("Like westerns? Yep");
-		happyEnd("firefly");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "firefly");				
 end
 
 
@@ -386,10 +403,11 @@ rule 'Comedy? Yep'
 		
 	then
 		System.out.println("Comedy? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"UK", "USA"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("British or American?", 
-			Arrays.asList("UK", "USA")));		
+			list ));		
 end
 
 
@@ -402,7 +420,7 @@ rule 'Comedy? Yep; British or American? USA'
 		
 	then
 		System.out.println("British or American? USA");
-		happyEnd("Futurama");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Futurama");		
 end
 
 
@@ -411,11 +429,11 @@ rule 'Comedy? Yep; British or American? UK'
 		q : Question(description.equals("Comedy?") 
 			&& selected.equals("Yep"))
 		q2 : Question(description.equals("British or American?") 
-			&& selected.equals("USA"))
+			&& selected.equals("UK"))
 		
 	then
 		System.out.println("British or American? UK");
-		happyEnd("Red dwarf");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Red dwarf");		
 end
 
 
@@ -426,10 +444,11 @@ rule 'What SF series should I watch on Netflix? Horror'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Horror");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Vampires", "Zombies", "Neither"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Vampires or Zombies?", 
-			Arrays.asList("Vampires", "Zombies", "Neither")));		
+			list ));		
 end
 
 
@@ -440,7 +459,7 @@ rule 'Vampires or Zombies? Zombies'
 		
 	then
 		System.out.println("Vampires or Zombies? Zombies");
-		happyEnd("The walking dead");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "The walking dead");		
 end
 
 
@@ -451,10 +470,11 @@ rule 'Vampires or Zombies? Neither'
 		
 	then
 		System.out.println("Vampires or Zombies? Neither");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Like anthologies?", 
-			Arrays.asList("Yep", "Nope")));	
+			list ));	
 end
 
 
@@ -467,7 +487,7 @@ rule 'Vampires or Zombies? Neither; Like anthologies? Nope'
 		
 	then
 		System.out.println("Like anthologies? Nope");
-		happyEnd("The charmed");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "The charmed");	
 end
 
 
@@ -480,10 +500,11 @@ rule 'Vampires or Zombies? Neither; Like anthologies? Yep'
 		
 	then
 		System.out.println("Like anthologies? Yep");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Psycho", "Gory"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Psychological or Gory?", 
-			Arrays.asList("Psycho", "Gory")));	
+			list ));	
 end
 
 
@@ -494,7 +515,7 @@ rule 'Psychological or Gory? Psycho'
 		
 	then
 		System.out.println("Psychological or Gory? Psycho");
-		happyEnd("The twilight zone");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "The twilight zone");	
 end
 
 
@@ -505,7 +526,7 @@ rule 'Psychological or Gory? Gory'
 		
 	then
 		System.out.println("Psychological or Gory? Gory");
-		happyEnd("Tales from the crypt");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Tales from the crypt");	
 end
 
 
@@ -516,10 +537,11 @@ rule 'Vampires or Zombies? Vampires'
 		
 	then
 		System.out.println("Vampires or Zombies? Vampires");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"<16", ">16"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("How old are you?", 
-			Arrays.asList("<16", ">16")));	
+			list ));	
 end
 
 
@@ -530,10 +552,11 @@ rule 'How old are you? >16'
 		
 	then
 		System.out.println("How old are you? >16");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"SFW", "NSFW"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("SFW or NSFW?", 
-			Arrays.asList("SFW", "NSFW")));	
+			list ));	
 end
 
 
@@ -544,10 +567,11 @@ rule 'SFW or NSFW? SFW'
 		
 	then
 		System.out.println("SFW or NSFW? SFW");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Seen Buffy?", 
-			Arrays.asList("Yep", "Nope")));	
+			list ));	
 end
 
 
@@ -558,7 +582,7 @@ rule 'Seen Buffy? Nope'
 		
 	then
 		System.out.println("Seen Buffy? Nope");
-		happyEnd("Buffy");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Buffy");	
 end
 
 
@@ -569,7 +593,7 @@ rule 'Seen Buffy? Yep'
 		
 	then
 		System.out.println("Seen Buffy? Yep");
-		happyEnd("Angel");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Angel");	
 end
 
 
@@ -580,10 +604,11 @@ rule 'SFW or NSFW? NSFW'
 		
 	then
 		System.out.println("SFW or NSFW? NSFW");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"UK", "USA"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("British or American?", 
-			Arrays.asList("UK", "USA")));	
+			list ));	
 end
 
 
@@ -596,7 +621,7 @@ rule 'SFW or NSFW? NSFW; British or American? USA'
 		
 	then
 		System.out.println("British or American? USA");
-		happyEnd("True blood");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "True blood");	
 end
 
 
@@ -609,7 +634,7 @@ rule 'SFW or NSFW? NSFW; British or American? UK'
 		
 	then
 		System.out.println("British or American? UK");
-		happyEnd("Being human");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Being human");	
 end
 
 
@@ -620,7 +645,7 @@ rule 'How old are you? <16'
 		
 	then
 		System.out.println("How old are you? >16");
-		happyEnd("The vampire diaries");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "The vampire diaries");	
 end
 
 
@@ -631,10 +656,11 @@ rule 'What SF series should I watch on Netflix? Slipstream'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Slipstream");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Action", "Drama"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Action or Drama?", 
-			Arrays.asList("Action", "Drama")));		
+			list ));		
 end
 
 
@@ -645,10 +671,11 @@ rule 'Action or Drama? Drama'
 		
 	then
 		System.out.println("Action or Drama? Drama");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope", "Hated it"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Have you seen X-files?", 
-			Arrays.asList("Yep", "Nope", "Hated it")));		
+			list ));		
 end
 
 
@@ -659,7 +686,7 @@ rule 'Have you seen X-files? Nope'
 		
 	then
 		System.out.println("Have you seen X-files? Nope");
-		happyEnd("The X-files");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "The X-files");		
 end
 
 
@@ -670,10 +697,11 @@ rule 'Have you seen X-files? Hated it'
 		
 	then
 		System.out.println("Have you seen X-files? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Are you OK with being let down?", 
-			Arrays.asList("Yep", "Nope")));	
+			list ));	
 end
 
 
@@ -684,7 +712,7 @@ rule 'Are you OK with being let down? Yep'
 		
 	then
 		System.out.println("Are you OK with being let down? Yep");
-		happyEnd("Lost");
+		happyEnd(kcontext.getKieRuntime(),  endText, "Lost");
 end
 
 
@@ -695,10 +723,11 @@ rule 'Are you OK with being let down? Nope'
 		
 	then
 		System.out.println("Are you OK with being let down? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Who?", "I'm a Fan"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("How do you feel about Scott Bakula?", 
-			Arrays.asList("Who?", "I'm a Fan")));	
+			list ));	
 end
 
 
@@ -709,7 +738,7 @@ rule 'How do you feel about Scott Bakula? Im a Fan?'
 		
 	then
 		System.out.println("How do you feel about Scott Bakula? I'm a Fan?");
-		happyEnd("Quantum Leap");
+		happyEnd(kcontext.getKieRuntime(),  endText, "Quantum Leap");
 end
 
 
@@ -720,7 +749,7 @@ rule 'How do you feel about Scott Bakula? Who?'
 		
 	then
 		System.out.println("How do you feel about Scott Bakula? Who?");
-		happyEnd("Warehouse 13");
+		happyEnd(kcontext.getKieRuntime(),  endText, "Warehouse 13");
 end
 
 
@@ -731,7 +760,7 @@ rule 'Have you seen X-files? Yep'
 		
 	then
 		System.out.println("Have you seen X-files? Yep");
-		happyEnd("Fringe");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Fringe");		
 end
 
 
@@ -742,10 +771,11 @@ rule 'Action or Drama? Action'
 		
 	then
 		System.out.println("Action or Drama? Action");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Streampunk", "Biopunk"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Biopunk or Streampunk?", 
-			Arrays.asList("Streampunk", "Biopunk")));		
+			list ));		
 end
 
 
@@ -756,10 +786,11 @@ rule 'Biopunk or Streampunk? Biopunk'
 		
 	then
 		System.out.println("Biopunk or Streampunk? Biopunk");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Cameron", "Whedon"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Whedon or Cameron?", 
-			Arrays.asList("Cameron", "Whedon")));		
+			list ));		
 end
 
 
@@ -770,7 +801,7 @@ rule 'Whedon or Cameron? Whedon'
 		
 	then
 		System.out.println("Whedon or Cameron? Whedon");
-		happyEnd("Dollhouse");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Dollhouse");		
 end
 
 
@@ -781,7 +812,7 @@ rule 'Whedon or Cameron? Cameron'
 		
 	then
 		System.out.println("Whedon or Cameron? Cameron");
-		happyEnd("Dark Angel");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Dark Angel");		
 end
 
 
@@ -792,7 +823,7 @@ rule 'Biopunk or Streampunk? Streampunk'
 		
 	then
 		System.out.println("Biopunk or Streampunk? Streampunk");
-		happyEnd("Sanctuary");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Sanctuary");		
 end
 
 
@@ -803,10 +834,11 @@ rule 'What SF series should I watch on Netflix? Fantasy'
 		
 	then
 		System.out.println("What SF series should I watch on Netflix? Fantasy");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Urban", "Period"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Urban or Period?", 
-			Arrays.asList("Urban", "Period")));		
+			list ));		
 end
 
 
@@ -817,10 +849,11 @@ rule 'Urban or Period? Urban'
 		
 	then
 		System.out.println("Urban or Period? Urban");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Like Superheroes?", 
-			Arrays.asList("Yep", "Nope")));		
+			list ));		
 end
 
 
@@ -831,10 +864,11 @@ rule 'Like Superheroes? Yep'
 		
 	then
 		System.out.println("Like Superheroes? Urban");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Live", "Toons"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Animated or Live Action?", 
-			Arrays.asList("Live", "Toons")));		
+			list ));		
 end
 
 
@@ -847,7 +881,7 @@ rule 'Like Superheroes? Yep; Animated or Live Action? Toons'
 		
 	then
 		System.out.println("Animated or Live Action? Yep");
-		happyEnd("The Tick");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "The Tick");		
 end
 
 
@@ -860,7 +894,7 @@ rule 'Like Superheroes? Yep; Animated or Live Action? Live'
 		
 	then
 		System.out.println("Animated or Live Action? Live");
-		happyEnd("SmallVille");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "SmallVille");		
 end
 
 
@@ -871,10 +905,11 @@ rule 'Like Superheroes? Nope'
 		
 	then
 		System.out.println("Like Superheroes? Nope");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("How about Mythology?", 
-			Arrays.asList("Yep", "Nope")));	
+			list ));	
 end
 
 
@@ -885,7 +920,7 @@ rule 'How about Mythology? Yep'
 		
 	then
 		System.out.println("How about Mythology? Yep");
-		happyEnd("Highlander");
+		happyEnd(kcontext.getKieRuntime(),  endText, "Highlander");
 end
 
 
@@ -896,7 +931,7 @@ rule 'How about Mythology? Nope'
 		
 	then
 		System.out.println("How about Mythology? Nope");
-		happyEnd("Dresden files");
+		happyEnd(kcontext.getKieRuntime(),  endText, "Dresden files");
 end
 
 
@@ -907,10 +942,11 @@ rule 'Urban or Period? Period'
 		
 	then
 		System.out.println("Urban or Period? Period");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Myths", "Legends"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Myths or Legends?", 
-			Arrays.asList("Myths", "Legends")));		
+			list ));		
 end
 
 
@@ -921,10 +957,11 @@ rule 'Myths or Legends? Myths'
 		
 	then
 		System.out.println("Myths or Legends? Myths");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Dudes", "Ladies"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Buff Dudes of Hot Girls?", 
-			Arrays.asList("Dudes", "Ladies")));		
+			list ));		
 end
 
 
@@ -935,7 +972,7 @@ rule 'Buff Dudes of Hot Girls? Ladies'
 		
 	then
 		System.out.println("Buff Dudes of Hot Girls? Ladies");
-		happyEnd("Xena");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Xena");		
 end
 
 
@@ -946,7 +983,7 @@ rule 'Buff Dudes of Hot Girls? Dudes'
 		
 	then
 		System.out.println("Buff Dudes of Hot Girls? Dudes");
-		happyEnd("Hercules");		
+		happyEnd(kcontext.getKieRuntime(),  endText, "Hercules");		
 end
 
 
@@ -957,10 +994,11 @@ rule 'Myths or Legends? Legends'
 		
 	then
 		System.out.println("Myths or Legends? Legends");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Toons", "Live"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Animated or Live Action?", 
-			Arrays.asList("Toons", "Live")));		
+			list ));		
 end
 
 
@@ -973,10 +1011,11 @@ rule 'Myths or Legends? Legends; Animated or Live Action? Live'
 		
 	then
 		System.out.println("Animated or Live Action? Live");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Like lots of nudity?", 
-			Arrays.asList("Yep", "Nope")));		
+			list ));		
 end
 
 
@@ -987,7 +1026,7 @@ rule 'Like lots of nudity? Yep'
 		
 	then
 		System.out.println("Like lots of nudity? Yep");
-		happyEnd("Spartacus");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Spartacus");	
 end
 
 
@@ -998,7 +1037,7 @@ rule 'Like lots of nudity? Nope'
 		
 	then
 		System.out.println("Like lots of nudity? Nope");
-		happyEnd("Legend seeker");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Legend seeker");	
 end
 
 
@@ -1011,10 +1050,11 @@ rule 'Myths or Legends? Legends; Animated or Live Action? Toons'
 		
 	then
 		System.out.println("Animated or Live Action? Toons");
-		addQuestion(textPane, 
-			buttons, 
+		String[] list = {"Yep", "Nope"};
+		addQuestion(kcontext.getKieRuntime(), 
+			frame,
 			new Question("Do you have a Gameboy?", 
-			Arrays.asList("Yep", "Nope")));		
+			list ));		
 end
 
 
@@ -1025,7 +1065,7 @@ rule 'Do you have a Gameboy? Nope'
 		
 	then
 		System.out.println("Do you have a Gameboy? Nope");
-		happyEnd("Avatar");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Avatar");	
 end
 
 
@@ -1036,29 +1076,48 @@ rule 'Do you have a Gameboy? Yep'
 		
 	then
 		System.out.println("Do you have a Gameboy? Yep");
-		happyEnd("Pokemon");	
+		happyEnd(kcontext.getKieRuntime(),  endText, "Pokemon");	
 end
 
 
-function void addQuestion(JTextPane textPane, ArrayList buttons, Question question) {
+
+function void addQuestion(KieRuntime krt, JFrame frame, Question question) {
 	
-	textPane.setText(question.description);
-	
-	
-	for (JRadioButton jRadioButton : (List <JRadioButton>) buttons) {
-		jRadioButton.setVisible(false);	
-	}
+	JPanel panel = new JPanel();
+	List <JRadioButton> buttons = new ArrayList<>();
+	ButtonGroup buttonGroup = new ButtonGroup();
 	
 	int i = 0;
-	for (String choice : question.choices) {
-			((List <JRadioButton>)buttons).get(i).setText(choice);
-			((List <JRadioButton>)buttons).get(i).setVisible(true);
-			i++;				
-		}
+	for (String choice : question.getChoices()) {
+		buttons.add(new JRadioButton(choice));
+		panel.add(buttons.get(i));
+		buttonGroup.add(buttons.get(i));
+		i++;		
+	}
+
+	while(true) {
 	
+		JOptionPane.showOptionDialog(frame, panel,
+	    question.getDescription(), JOptionPane.DEFAULT_OPTION,
+	    JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+	    for (JRadioButton jRadioButton : buttons) {
+			if (jRadioButton.isSelected()) {
+				question.setSelected(jRadioButton.getText());
+				krt.insert(question);
+				return;
+			}
+		}	
+		
+				
+	}
 }
 
-function void happyEnd(String ending) {
+
+function void happyEnd(KieRuntime krt, JTextPane endText, String ending) {
+
+	endText.setText("Congratulations you come to the end!\nYou should watch " + ending);
+	System.out.println("End: " + ending);
 	
 }
 
