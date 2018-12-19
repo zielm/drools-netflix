@@ -18,10 +18,8 @@ public class Netflix {
 	private static KieSession kSession;
 	
 	public static void main(String[] args) {
-		// KieServices is the factory for all KIE services
-        KieServices ks = KieServices.Factory.get();
 
-        // From the kie services, a container is created from the classpath
+        KieServices ks = KieServices.Factory.get();
         KieContainer kc = ks.getKieClasspathContainer();
 
         new Netflix().init(kc, true);
@@ -48,7 +46,6 @@ public class Netflix {
 	public static class NetflixCallback {
 		
 	    private KieContainer kcontainer;
-//	    private KieSession kSession;
 	
 	    public NetflixCallback(KieContainer kcontainer) {
 	        this.kcontainer = kcontainer;
@@ -68,15 +65,9 @@ public class Netflix {
 	       
 
 	   }
-	    /*
-	    public void accept(Question question) {
-	        kSession.insert( question );
-	        kSession.fireAllRules();
-	    }
-	    */
 	}
 	
-
+/*
 	public static class Question {
 		
 		public String description;
@@ -96,7 +87,7 @@ public class Netflix {
 		}
 		
 	}
- 
+*/ 
 	public static class ThreadDRL extends Thread {
 
 		    public void run(){

@@ -18,14 +18,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import netflix.Netflix.NetflixCallback;
-import netflix.Netflix.Question;
 import javax.swing.JToggleButton;
 
 public class NetflixWindow extends JFrame {
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private NetflixCallback callback;
@@ -44,7 +41,6 @@ public class NetflixWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */	
-	
 	public NetflixWindow(NetflixCallback callback) {
 		setResizable(false);
 		this.callback = callback;
@@ -84,12 +80,13 @@ public class NetflixWindow extends JFrame {
 		buttons.add(radioButton3);
 		
 		buttonOK = new JToggleButton("OK");
-		
-//		buttonOK.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				buttonOKActionPerformed(e);
-//			}
-//		});
+		/*
+		buttonOK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonOKActionPerformed(e);
+			}
+		});
+		*/
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
@@ -192,7 +189,7 @@ public class NetflixWindow extends JFrame {
 	}
 	
 
-	/*
+	/**
 	 * Show a window
 	 */
 	public void create() {
@@ -206,7 +203,7 @@ public class NetflixWindow extends JFrame {
 	
 	
 	/**
-	 * Start the quiz
+	 * Start quiz
 	 * @param e
 	 */
 	private void buttonStartActionPerformed(ActionEvent e) {
@@ -217,31 +214,31 @@ public class NetflixWindow extends JFrame {
 	}
 	
 	
+	/*
+	private void buttonOKActionPerformed(ActionEvent e) {
+		
+		System.out.println(buttonOK.isSelected());
+		
+		if (buttonGroup.getSelection() != null) {
+			Question question = new Question();
+	        question.description = textPane.getText();
+	        for (JRadioButton jRadioButton : buttons) {
+				if(jRadioButton.isSelected()) {
+					question.selected = jRadioButton.getText();
+				}
+			}
+			callback.accept(question);
+			buttonGroup.clearSelection();				
+			
+		}
+		
+	}
+	*/
+	
 	/**
-	 * Choose the answer
+	 * Restart quiz
 	 * @param e
 	 */
-	
-//	private void buttonOKActionPerformed(ActionEvent e) {
-//		
-//		System.out.println(buttonOK.isSelected());
-//		
-//		if (buttonGroup.getSelection() != null) {
-//			Question question = new Question();
-//	        question.description = textPane.getText();
-//	        for (JRadioButton jRadioButton : buttons) {
-//				if(jRadioButton.isSelected()) {
-//					question.selected = jRadioButton.getText();
-//				}
-//			}
-//			callback.accept(question);
-//			buttonGroup.clearSelection();				
-//			
-//		}
-//		
-//	}
-	
-	
 	private void buttonRestartActionPerformed(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 		cardLayout.next(contentPane);
