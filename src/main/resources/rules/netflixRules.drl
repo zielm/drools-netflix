@@ -370,7 +370,7 @@ rule 'Classic or Modern? Modern'
 		
 	then
 		System.out.println("Classic or Modern? Modern");
-		happyEnd(kcontext.getKieRuntime(),  endText, "Galactica");				
+		happyEnd(kcontext.getKieRuntime(),  endText, "Galactica: Season 1");				
 end
 
 
